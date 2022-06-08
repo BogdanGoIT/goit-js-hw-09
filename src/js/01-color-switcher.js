@@ -10,28 +10,26 @@ const refs = {
 console.log(refs.start);
 console.log(refs.stop);
 
-refs.start.addEventListener('click', onStartColor);
-refs.stop.addEventListener('click', onStopColor);
+let intervalId = null;
 
-let intervalId = null; 
-
-function onStartColor(e) {
+refs.start.addEventListener('click', (e) => {
     e.target.disabled = true;
     
     intervalId = setInterval(() => {
-            
         document.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
     
     refs.stop.disabled = false;
-}
+});
 
-function onStopColor(e) {
+
+refs.stop.addEventListener('click', (e) => {
     clearInterval(intervalId);
     refs.start.disabled = false;
     e.target.disabled = true;
-}
+});
 
+ 
 
 
 // function onLicenseChange(event) {
