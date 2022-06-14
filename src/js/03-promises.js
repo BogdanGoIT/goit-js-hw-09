@@ -7,24 +7,29 @@ const refs = {
 
 
 
-let promptCounter = 0;
+let position = 0;
 
 refs.form.addEventListener('submit', (e) => { 
   e.preventDefault();
   
   let step = Number(refs.step.value);
   let delay = Number(refs.delay.value);
-  const position = Number(refs.amount.value);
+  const amount = Number(refs.amount.value);
 
-  console.log(position);
+  console.log(amount);
 
   const intervalId = setInterval(() => {
     
-    if (promptCounter === position) {
+    if (position === amount) {
         console.log('нужно остановить интервал');
-        clearInterval(intervalId);
-        return;
+      clearInterval(intervalId);
+      position = 0;
+      delay = 0;
+      return;
+      
     } 
+
+    position += 1;
 
     createPromise(position, delay)
       .then(({ position, delay }) => {
@@ -34,7 +39,7 @@ refs.form.addEventListener('submit', (e) => {
       console.log(`❌ Rejected promise ${position} in ${delay}ms`);
     });
 
-        promptCounter += 1;
+        
         delay += step;
     
   }, delay)
